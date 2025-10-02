@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] AnimatorOverrideController mAnimatorOverrideController;
     [SerializeField] AimComponent mAimComponent;
     [SerializeField] float mDamage = 5f;
+    [SerializeField] ParticleSystem mProjectileParticleSystem;
 
     Animator mOwnerAnimator;
     public string AttachSocketName => mAttachSocketName;
@@ -32,6 +33,11 @@ public class Weapon : MonoBehaviour
     internal void Fire()
     {
         GameObject aimTarget = mAimComponent.GetAimTarget();
+        if (mProjectileParticleSystem)
+        {
+            mProjectileParticleSystem.Emit(mProjectileParticleSystem.emission.GetBurst(0).maxCount);
+        }
+
         DamageGameObject(aimTarget);
     }
 

@@ -81,7 +81,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -137,7 +137,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -200,7 +200,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 20
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -696,7 +696,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 0
+    angle: 0.1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -782,7 +782,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.01
+      value: 0.03
       mode: 0
       spread: 0
       speed:
@@ -4974,6 +4974,7 @@ MonoBehaviour:
   mAnimatorOverrideController: {fileID: 22100000, guid: ef10e82c9b8d5d844beeae56ffe33d03, type: 2}
   mAimComponent: {fileID: 5606244630995925660}
   mDamage: 5
+  mProjectileParticleSystem: {fileID: 7562096939992278578}
 --- !u!114 &5606244630995925660
 MonoBehaviour:
   m_ObjectHideFlags: 0
