@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 2668424170160756183}
   - component: {fileID: 8181074015162438756}
   - component: {fileID: -1853876296777504463}
+  - component: {fileID: -1495800526601325437}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -348,6 +349,19 @@ MonoBehaviour:
   mDamageOrigin: {fileID: 7137022042573648518}
   mDamageRadius: 1
   mDamageAmount: 20
+  mDrawDebug: 1
+--- !u!114 &-1495800526601325437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175435065347953938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2456f907895f0e44f9a2fe21c6f6182d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8267626444190448866
 GameObject:
   m_ObjectHideFlags: 0

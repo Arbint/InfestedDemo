@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5821985170529917553}
   - component: {fileID: 1631411349415909879}
   - component: {fileID: -1081825446298340691}
+  - component: {fileID: 2836677316488093735}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -143,6 +144,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mHealth: 100
   mMaxHealth: 100
+--- !u!114 &2836677316488093735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463943889009234200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2456f907895f0e44f9a2fe21c6f6182d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1067225959653057681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -273,6 +286,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 13700002, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 948bcc6191938754db23b8652fb08584, type: 2}
     m_RemovedComponents:
     - {fileID: 9500000, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
     m_RemovedGameObjects: []
