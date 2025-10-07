@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DamageVisualizer : MonoBehaviour
 {
+
     HealthComponent mHealthComponent;
     Material mDynamicMaterial;
     [SerializeField] Renderer mRenderer;
