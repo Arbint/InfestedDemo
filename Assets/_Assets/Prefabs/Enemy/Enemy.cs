@@ -8,6 +8,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
 {
     [SerializeField] uint mTeamId = 1;
+    [SerializeField] float mAttackRange = 1;
+    [SerializeField] float mMoveSpeed = 3;
+    [SerializeField] float mAttackCooldown = 1;
     private Animator mAnimator;
     int mAttackAnimatorTriggerHash = Animator.StringToHash("Attack");
 
@@ -15,7 +18,6 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
 
     private HealthComponent mHealthComponent;
     private PerceptionComponent mPerceptionComponent;
-
     private BehaviorGraphAgent mBehaviorGraphAgent;
 
     GameObject mTarget;
@@ -28,6 +30,10 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
         mPerceptionComponent.onTargetUpdated += TargetUpdated;
 
         mBehaviorGraphAgent = GetComponent<BehaviorGraphAgent>();
+
+        mBehaviorGraphAgent.BlackboardReference.SetVariableValue("MoveSpeed", mMoveSpeed);
+        mBehaviorGraphAgent.BlackboardReference.SetVariableValue("AttackRange", mAttackRange);
+        mBehaviorGraphAgent.BlackboardReference.SetVariableValue("AttackCooldownDuration", mAttackCooldown);
     }
 
     private void TargetUpdated(GameObject target, bool wasSuccessfullySensed)

@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(InventoryComponent))]
-public class PlayerCharacter : MonoBehaviour, ITeamInterface
+[RequireComponent(typeof(HealthComponent))]
+public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
 {
     [SerializeField] float mMoveSpeed = 5f;
     [SerializeField] float mRotationLerpRate = 20f;
@@ -23,13 +24,21 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
 
     float mAnimatorTurnSpeed = 0f;
 
+    public bool Dead => mHealthComponent.Health == 0;
+
+    public bool mDeathStarted;
+
     int mFowardSpeedAnimationHash = Animator.StringToHash("forwardSpeed");
     int mRightSpeedAnimationHash = Animator.StringToHash("rightSpeed");
     int mTurnSpeedAnimationHash = Animator.StringToHash("turnSpeed");
     int mSwitchWeaponTriggerHash = Animator.StringToHash("switchWeapon");
     int mIsFiringAnimationHash = Animator.StringToHash("isFiring");
+    int mDeadAnimationHash = Animator.StringToHash("dead");
 
     InventoryComponent mInventoryComponent;
+
+    HealthComponent mHealthComponent;
+
     public void SetCameraRig(CameraRig cameraRig)
     {
         mCameraRig = cameraRig;
@@ -42,6 +51,20 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
         mAnimator = GetComponent<Animator>();
 
         mInventoryComponent = GetComponent<InventoryComponent>();
+        mHealthComponent = GetComponent<HealthComponent>();
+        mHealthComponent.onHealthEmpty += StartDeath;
+    }
+
+    private void StartDeath()
+    {
+        if (mDeathStarted)
+        {
+            return;
+        }
+        mDeathStarted = true;
+
+        mAnimator.SetTrigger(mDeadAnimationHash);
+        mGameplayWidget.SwitchToGameOverState();
     }
 
     private void HandleMoveInput(Vector2 inputValue)
@@ -51,7 +74,8 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
     private void HandleAimInput(Vector2 inputValue)
     {
         mAimInput = inputValue;
-        mAnimator.SetBool(mIsFiringAnimationHash, inputValue.sqrMagnitude > 0);
+        if(!Dead)
+            mAnimator.SetBool(mIsFiringAnimationHash, inputValue.sqrMagnitude > 0);
     }
 
     bool ShouldTurn()
@@ -62,10 +86,18 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
     // Update is called once per frame
     void Update()
     {
+        UpdateMovement();
+    }
+
+    private void UpdateMovement()
+    {
+        if (Dead)
+            return;
+
         Vector3 moveDir = JoystickInputToWorldDir(mMoveInput);
         Vector3 aimDir = JoystickInputToWorldDir(mAimInput);
 
-        if(aimDir.sqrMagnitude == 0)
+        if (aimDir.sqrMagnitude == 0)
         {
             aimDir = moveDir;
         }
@@ -81,7 +113,7 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
                                               Time.deltaTime * mRotationLerpRate
                                               );
 
-            currentTurnSpeed = (transform.rotation.eulerAngles.y - prevRot.eulerAngles.y)/Time.deltaTime;
+            currentTurnSpeed = (transform.rotation.eulerAngles.y - prevRot.eulerAngles.y) / Time.deltaTime;
         }
 
         mAnimatorTurnSpeed = Mathf.Lerp(mAnimatorTurnSpeed, currentTurnSpeed, mAnimTurnSpeedLerpRate * Time.deltaTime);
@@ -92,8 +124,8 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
         float forwardSpeed = Vector3.Dot(moveDir, transform.forward);
         float rightSpeed = Vector3.Dot(moveDir, transform.right);
 
-        mAnimator.SetFloat(mFowardSpeedAnimationHash, forwardSpeed);        
-        mAnimator.SetFloat(mRightSpeedAnimationHash, rightSpeed);        
+        mAnimator.SetFloat(mFowardSpeedAnimationHash, forwardSpeed);
+        mAnimator.SetFloat(mRightSpeedAnimationHash, rightSpeed);
     }
 
     Vector3 JoystickInputToWorldDir(Vector2 inputValue)
@@ -131,5 +163,10 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface
     public uint GetTeamId()
     {
         return mTeamId;
+    }
+
+    public void StartShake()
+    {
+        mCameraRig.StartShake();
     }
 }
