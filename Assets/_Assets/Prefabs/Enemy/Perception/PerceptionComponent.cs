@@ -75,4 +75,13 @@ public class PerceptionComponent : MonoBehaviour
             }
         }
     }
+
+    internal GameObject GetTarget()
+    {
+        if(mCurrentTargetStimuli)
+        {
+            return mCurrentTargetStimuli.gameObject;
+        }
+        return null;
+    }
 }

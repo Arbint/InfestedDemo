@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1631411349415909879}
   - component: {fileID: -1081825446298340691}
   - component: {fileID: 2836677316488093735}
+  - component: {fileID: 315903838365823731}
+  - component: {fileID: 1311790509687523264}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -76,10 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8c14c0351abcf4e98be6d443f6248c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMoveSpeed: 5
   mRotationLerpRate: 20
   mAnimTurnSpeedLerpRate: 20
   mTeamId: 0
+  mDeathStarted: 0
 --- !u!95 &6179054746511484381
 Animator:
   serializedVersion: 7
@@ -160,6 +162,39 @@ MonoBehaviour:
   mFlashColor: {r: 1, g: 0, b: 0, a: 1}
   mFlashColorLerpRate: 20
   mFlashColorMaterialParamName: _EmissionAddition
+--- !u!114 &315903838365823731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463943889009234200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921b9dae76bdbf149a613630231e8316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Mana>k__BackingField:
+    <BaseValue>k__BackingField: 200
+  <MaxMana>k__BackingField:
+    <BaseValue>k__BackingField: 200
+  <MoveSpeed>k__BackingField:
+    <BaseValue>k__BackingField: 5
+--- !u!114 &1311790509687523264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463943889009234200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d58f0411d4704582414a76da14c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInitialAbilities: []
+  mInitialEffects:
+  - {fileID: 11400000, guid: 3cd4b5009eb728d49aab96f55ad22750, type: 2}
 --- !u!1001 &1067225959653057681
 PrefabInstance:
   m_ObjectHideFlags: 0

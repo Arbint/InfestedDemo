@@ -5,15 +5,30 @@ public class GameMode : MonoBehaviour
     [SerializeField] PlayerCharacter mPlayerCharacterPrefab;
     [SerializeField] GameplayWidget mGameplayWidgetPrefab;
     [SerializeField] CameraRig mCameraRigPrefab;
+    public PlayerCharacter PlayerCharacter { get; private set; }
+
+    public static GameMode Main;
 
     private void Awake()
     {
-        PlayerCharacter playerCharacter = Instantiate(mPlayerCharacterPrefab); 
+        if(Main != null)
+        {
+            Destroy(this);
+        }
+        Main = this;
+        PlayerCharacter = Instantiate(mPlayerCharacterPrefab); 
         GameplayWidget gameplayWidget = Instantiate(mGameplayWidgetPrefab);
 
         CameraRig cameraRig = Instantiate(mCameraRigPrefab);
-        playerCharacter.SetCameraRig(cameraRig);
+        PlayerCharacter.SetCameraRig(cameraRig);
 
-        playerCharacter.SetGameplayWidget(gameplayWidget);
+        PlayerCharacter.SetGameplayWidget(gameplayWidget);
+    }
+    void OnDestroy()
+    {
+        if(Main == this)
+        {
+            Main = null;
+        }
     }
 }

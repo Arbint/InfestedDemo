@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -7,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(HealthComponent))]
 public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
 {
-    [SerializeField] float mMoveSpeed = 5f;
     [SerializeField] float mRotationLerpRate = 20f;
     [SerializeField] float mAnimTurnSpeedLerpRate = 20f;
     [SerializeField] uint mTeamId = 0;
@@ -39,6 +37,8 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
 
     HealthComponent mHealthComponent;
 
+    AttributeSet mAttributeSet;
+
     public void SetCameraRig(CameraRig cameraRig)
     {
         mCameraRig = cameraRig;
@@ -53,6 +53,7 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
         mInventoryComponent = GetComponent<InventoryComponent>();
         mHealthComponent = GetComponent<HealthComponent>();
         mHealthComponent.onHealthEmpty += StartDeath;
+        mAttributeSet = GetComponent<AttributeSet>();
     }
 
     private void StartDeath()
@@ -102,7 +103,7 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
             aimDir = moveDir;
         }
 
-        mCharacterController.Move(moveDir * Time.deltaTime * mMoveSpeed);
+        mCharacterController.Move(moveDir * Time.deltaTime * mAttributeSet.MoveSpeed.CurrentValue);
 
         float currentTurnSpeed = 0f;
         if (aimDir.sqrMagnitude != 0)

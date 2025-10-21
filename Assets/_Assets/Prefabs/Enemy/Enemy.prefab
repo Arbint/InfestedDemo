@@ -104,6 +104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTeamId: 1
+  mAttackRange: 1
+  mMoveSpeed: 3
+  mAttackCooldown: 1
 --- !u!136 &6788904524488857152
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -227,10 +230,7 @@ MonoBehaviour:
           m_Value0: 12827542619885549175
           m_Value1: 8028731532941829206
         Name: PatroPoints
-        m_Value:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
+        m_Value: []
     - rid: 6348081539120628500
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
