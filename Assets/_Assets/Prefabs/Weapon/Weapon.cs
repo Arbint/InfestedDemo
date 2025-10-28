@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] string mAttachSocketName;
     [SerializeField] AnimatorOverrideController mAnimatorOverrideController;
     [SerializeField] AimComponent mAimComponent;
-    [SerializeField] float mDamage = 5f;
+    [SerializeField] GameplayEffect  mDamageEffect;
     [SerializeField] ParticleSystem mProjectileParticleSystem;
 
     Animator mOwnerAnimator;
@@ -51,11 +51,11 @@ public class Weapon : MonoBehaviour
         if (!objToDamage)
             return;
 
-        HealthComponent objectHealthComponent = objToDamage.GetComponent<HealthComponent>();
+        AbilitySystemComponent abilitySystemComponent = objToDamage.GetComponent<AbilitySystemComponent>();
 
-        if (!objectHealthComponent)
+        if (!abilitySystemComponent)
             return;
 
-        objectHealthComponent.ChangeHealth(-mDamage, Owner);
+        abilitySystemComponent.ApplyGameplayEffectToSelf(new GameplayEffectSpec(mDamageEffect, Owner, 0));
     }
 }

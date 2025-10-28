@@ -23,7 +23,8 @@ public class HealthBar : UserWidget
                     Destroy(gameObject);
             };
 
-            OnwerHealthChanged(ownerHealthComp.Health, 0, ownerHealthComp.MaxHealth);
+            AttributeSet ownerAttributeSet = owner.GetComponent<AttributeSet>();
+            OnwerHealthChanged(ownerAttributeSet.Health.CurrentValue, 0, ownerAttributeSet.MaxHealth.CurrentValue);
         }
     }
 

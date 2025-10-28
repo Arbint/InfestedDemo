@@ -9865,7 +9865,7 @@ MonoBehaviour:
   mAttachSocketName: Rifle
   mAnimatorOverrideController: {fileID: 22100000, guid: ef10e82c9b8d5d844beeae56ffe33d03, type: 2}
   mAimComponent: {fileID: 5606244630995925660}
-  mDamage: 5
+  mDamageEffect: {fileID: 11400000, guid: eb72ff7109a06ff4b8bb3fcbd1956661, type: 2}
   mProjectileParticleSystem: {fileID: 7562096939992278578}
 --- !u!114 &5606244630995925660
 MonoBehaviour:

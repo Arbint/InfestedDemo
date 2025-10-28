@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileComponent : MonoBehaviour, ITeamInterface
 {
     [SerializeField] float mFlightHeight = 2f;
-    [SerializeField] float mHitDamage = 20f;
+    [SerializeField] private GameplayEffect mDamageEffect;
     [SerializeField] GameObject mExplodeCosmetic;
     [SerializeField] float mExplodeCosmeticScale = 0.1f;
     private Rigidbody mRigidBody;
@@ -60,10 +60,10 @@ public class ProjectileComponent : MonoBehaviour, ITeamInterface
         if (otherTeamAttitute == TeamAttitute.Hostile)
         {
             //do the damage
-            HealthComponent otherHealthComponent = other.GetComponent<HealthComponent>();
-            if(otherHealthComponent)
+            AbilitySystemComponent otherAbilitySystemComponent = other.GetComponent<AbilitySystemComponent>();
+            if(otherAbilitySystemComponent)
             {
-                otherHealthComponent.ChangeHealth(-mHitDamage, mOwner ? mOwner : gameObject);
+                otherAbilitySystemComponent.ApplyGameplayEffectToSelf(new GameplayEffectSpec(mDamageEffect, mOwner, 0));
             }
         }
 

@@ -22,7 +22,7 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
 
     float mAnimatorTurnSpeed = 0f;
 
-    public bool Dead => mHealthComponent.Health == 0;
+    public bool Dead => mAttributeSet.Health.CurrentValue == 0;
 
     public bool mDeathStarted;
 
@@ -103,7 +103,7 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
             aimDir = moveDir;
         }
 
-        mCharacterController.Move(moveDir * Time.deltaTime * mAttributeSet.MoveSpeed.CurrentValue);
+        mCharacterController.Move(moveDir * Time.deltaTime * mAttributeSet.MoveSpeed.CurrentValue + Vector3.down * Time.deltaTime * Physics.gravity.magnitude);
 
         float currentTurnSpeed = 0f;
         if (aimDir.sqrMagnitude != 0)

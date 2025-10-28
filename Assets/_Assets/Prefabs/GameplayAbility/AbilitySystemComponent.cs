@@ -9,8 +9,6 @@ public class AbilitySystemComponent : MonoBehaviour
     [SerializeField] GameplayEffect[] mInitialEffects;
     List<GameplayAbility> mAbilities = new List<GameplayAbility>();
 
-    public delegate void OnAttributeChanged(string name, float newValue, float oldValue);
-    public event OnAttributeChanged onAttributeChanged;
 
     AttributeSet mAttributeSet;
 
@@ -19,17 +17,9 @@ public class AbilitySystemComponent : MonoBehaviour
         mAttributeSet = GetComponent<AttributeSet>();
     }
 
-    public void ApplyGameplayEffectToSelf(GameplayEffect effectToApply)
+    public void ApplyGameplayEffectToSelf(GameplayEffectSpec effectToApply)
     {
-        foreach(AttributeModifier modifier in effectToApply.Modifiers)
-        {
-            ApplyModifier(modifier);
-        }
-    }
-
-    private void ApplyModifier(AttributeModifier modifier)
-    {
-        mAttributeSet.ApplyModifier(modifier);
+        mAttributeSet.ApplyGameplayEffect(effectToApply);
     }
 
     void Start()
@@ -41,7 +31,7 @@ public class AbilitySystemComponent : MonoBehaviour
 
         foreach(GameplayEffect initialEffect in mInitialEffects)
         {
-            ApplyGameplayEffectToSelf(initialEffect);
+            ApplyGameplayEffectToSelf(new GameplayEffectSpec(initialEffect, gameObject, 0));
         }
     }
 

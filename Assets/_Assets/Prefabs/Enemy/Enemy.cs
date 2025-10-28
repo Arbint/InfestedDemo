@@ -1,6 +1,7 @@
 using System;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(HealthComponent))]
@@ -9,7 +10,7 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
 {
     [SerializeField] uint mTeamId = 1;
     [SerializeField] float mAttackRange = 1;
-    [SerializeField] float mMoveSpeed = 3;
+    // [SerializeField] float mMoveSpeed = 3;
     [SerializeField] float mAttackCooldown = 1;
     private Animator mAnimator;
     int mAttackAnimatorTriggerHash = Animator.StringToHash("Attack");
@@ -21,6 +22,9 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
     private BehaviorGraphAgent mBehaviorGraphAgent;
 
     GameObject mTarget;
+    
+    AttributeSet mAttributeSet; 
+    NavMeshAgent mNavMeshAgent;
     private void Awake()
     {
         mAnimator = GetComponent<Animator>();
@@ -30,10 +34,21 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
         mPerceptionComponent.onTargetUpdated += TargetUpdated;
 
         mBehaviorGraphAgent = GetComponent<BehaviorGraphAgent>();
-
-        mBehaviorGraphAgent.BlackboardReference.SetVariableValue("MoveSpeed", mMoveSpeed);
+        mAttributeSet = GetComponent<AttributeSet>();
+        mBehaviorGraphAgent.BlackboardReference.SetVariableValue("MoveSpeed", mAttributeSet.MoveSpeed.CurrentValue);
         mBehaviorGraphAgent.BlackboardReference.SetVariableValue("AttackRange", mAttackRange);
         mBehaviorGraphAgent.BlackboardReference.SetVariableValue("AttackCooldownDuration", mAttackCooldown);
+        mAttributeSet.onAttributeChanged += AttributeChanged;
+        
+        mNavMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    private void AttributeChanged(string attributeName, float newValue, float oldValue, GameplayEffectSpec srcSpec)
+    {
+        if (attributeName == "MoveSpeed")
+        {
+            mNavMeshAgent.speed = newValue;
+        }
     }
 
     private void TargetUpdated(GameObject target, bool wasSuccessfullySensed)

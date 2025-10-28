@@ -5,7 +5,7 @@ public class MeleeDamageComponent : MonoBehaviour
 {
     [SerializeField] Transform mDamageOrigin;
     [SerializeField] float mDamageRadius = 1;
-    [SerializeField] float mDamageAmount = 20f;
+    [SerializeField] private GameplayEffect mDamageEffect;
     [SerializeField] bool mDrawDebug = true;
 
     ITeamInterface mTeamInterface;
@@ -32,11 +32,11 @@ public class MeleeDamageComponent : MonoBehaviour
             detectedTargets.Add(colliderInRange.gameObject);
             if (mTeamInterface.GetTeamAttituteTowards(colliderInRange.gameObject) == TeamAttitute.Hostile)
             {
-                HealthComponent targetHealthComponent = colliderInRange.GetComponent<HealthComponent>();
-                if (targetHealthComponent)
+                AbilitySystemComponent abilitySystemComponent = colliderInRange.GetComponent<AbilitySystemComponent>();
+                if (abilitySystemComponent)
                 {
                     Debug.Log($"Damaging: {colliderInRange.gameObject.name}");
-                    targetHealthComponent.ChangeHealth(-mDamageAmount, gameObject);
+                    abilitySystemComponent.ApplyGameplayEffectToSelf(new GameplayEffectSpec(mDamageEffect, gameObject, 0));
                 }
             }
         }

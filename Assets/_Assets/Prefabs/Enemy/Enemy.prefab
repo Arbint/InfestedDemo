@@ -53,6 +53,8 @@ GameObject:
   - component: {fileID: 2668424170160756183}
   - component: {fileID: 8181074015162438756}
   - component: {fileID: -1495800526601325437}
+  - component: {fileID: -6904221697682651562}
+  - component: {fileID: 5159055861935375531}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -89,8 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14b65f69d47afe4ba5fceb97d829920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHealth: 100
-  mMaxHealth: 100
 --- !u!114 &392527489422709742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +335,42 @@ MonoBehaviour:
   mFlashColor: {r: 1, g: 0, b: 0, a: 1}
   mFlashColorLerpRate: 20
   mFlashColorMaterialParamName: _EmissionAddition
+--- !u!114 &-6904221697682651562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175435065347953938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921b9dae76bdbf149a613630231e8316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Mana>k__BackingField:
+    <BaseValue>k__BackingField: 200
+  <MaxMana>k__BackingField:
+    <BaseValue>k__BackingField: 200
+  <Health>k__BackingField:
+    <BaseValue>k__BackingField: 50
+  <MaxHealth>k__BackingField:
+    <BaseValue>k__BackingField: 50
+  <MoveSpeed>k__BackingField:
+    <BaseValue>k__BackingField: 5
+--- !u!114 &5159055861935375531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175435065347953938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d58f0411d4704582414a76da14c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInitialAbilities: []
+  mInitialEffects: []
 --- !u!1 &8267626444190448866
 GameObject:
   m_ObjectHideFlags: 0

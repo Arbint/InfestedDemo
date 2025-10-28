@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum EModOperation
@@ -16,6 +17,9 @@ public class AttributeModifier
     [field: SerializeField] public float ModMagnitude { get; private set; }
     [field: SerializeField] public EModOperation ModOperation { get; private set; }
     [field: SerializeField] public float ModDuration { get; private set; }
+    
+    [field: SerializeField] public bool Stackable { get; private set; }
+    [field: SerializeField] public int MaxStackAmt { get; private set; } = 0;
 }
 
 [Serializable]
@@ -104,10 +108,33 @@ public class GameplayAttribute
 
     private void AddTemporaryModifer(AttributeModifier newModifer)
     {
+        if (!newModifer.Stackable && mModifers.Contains(newModifer))
+        {
+            return;
+        }
+
+        if (newModifer.MaxStackAmt <= GetModiferStackCount(newModifer))
+        {
+            return;
+        }
+        
         mModifers.Add(newModifer);
     }
 
-    internal void RemoveModifier(AttributeModifier modifer)
+    int GetModiferStackCount(AttributeModifier modifier)
+    {
+        int count = 0;
+        foreach (AttributeModifier existingModifier in mModifers)
+        {
+            if (existingModifier == modifier)
+            {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    public void RemoveModifier(AttributeModifier modifer)
     {
         mModifers.Remove(modifer);
     }
