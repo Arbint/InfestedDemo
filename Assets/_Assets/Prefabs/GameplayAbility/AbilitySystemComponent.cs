@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(AttributeSet))]
 public class AbilitySystemComponent : MonoBehaviour
@@ -40,5 +41,19 @@ public class AbilitySystemComponent : MonoBehaviour
         GameplayAbility newAbility = Instantiate(initialAbility);
         newAbility.Init(this);
         mAbilities.Add(newAbility);
+    }
+
+    internal bool TryApplyCostEffect(GameplayEffect mCostGameplayEffect)
+    {
+        if (!CanApplyCostEffect(mCostGameplayEffect))
+            return false;
+
+        ApplyGameplayEffectToSelf(new GameplayEffectSpec(mCostGameplayEffect, gameObject, 0));
+        return true;
+    }
+
+    internal bool CanApplyCostEffect(GameplayEffect mCostGameplayEffect)
+    {
+        return mAttributeSet.CanApplyCostEffect(mCostGameplayEffect);
     }
 }

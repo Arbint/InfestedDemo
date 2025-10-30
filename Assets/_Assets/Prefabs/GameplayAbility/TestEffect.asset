@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mModifier:
   - <AttributeName>k__BackingField: MoveSpeed
-    <ModMagnitude>k__BackingField: 10
+    <ModMagnitude>k__BackingField: 4
     <ModOperation>k__BackingField: 1
     <ModDuration>k__BackingField: 2
+    <Stackable>k__BackingField: 0
+    <MaxStackAmt>k__BackingField: 0

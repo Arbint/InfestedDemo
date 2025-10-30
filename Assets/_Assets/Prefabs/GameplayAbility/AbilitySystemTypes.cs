@@ -17,9 +17,24 @@ public class AttributeModifier
     [field: SerializeField] public float ModMagnitude { get; private set; }
     [field: SerializeField] public EModOperation ModOperation { get; private set; }
     [field: SerializeField] public float ModDuration { get; private set; }
-    
     [field: SerializeField] public bool Stackable { get; private set; }
     [field: SerializeField] public int MaxStackAmt { get; private set; } = 0;
+    [field: SerializeField] public float Period { get; private set; } = 0;
+
+    public bool IsDurational()
+    {
+        return ModDuration != 0;
+    }
+
+    public bool IsPeriodical()
+    {
+        return Period != 0;
+    }
+
+    public bool IsTemporary()
+    {
+        return IsDurational() && !IsPeriodical();    
+    }
 }
 
 [Serializable]
@@ -90,35 +105,34 @@ public class GameplayAttribute
 
     public void AddModifier(AttributeModifier newModifier)
     {
-        if (newModifier.ModDuration == 0)
-        {
-            BaseValue = ApplyModifierToValue(newModifier, BaseValue);
-            if (mValuePostProcessor != null)
-            {
-                BaseValue = mValuePostProcessor(BaseValue);
-            }
-
-            onModiferApplied?.Invoke(this);
-        }
-        else
+        if(newModifier.IsTemporary())
         {
             AddTemporaryModifer(newModifier);
+            return;
         }
+
+        BaseValue = ApplyModifierToValue(newModifier, BaseValue);
+        if (mValuePostProcessor != null)
+        {
+            BaseValue = mValuePostProcessor(BaseValue);
+        }
+
+        onModiferApplied?.Invoke(this);
     }
 
     private void AddTemporaryModifer(AttributeModifier newModifer)
     {
-        if (!newModifer.Stackable && mModifers.Contains(newModifer))
+        int stackCount = GetModiferStackCount(newModifer);
+        if (stackCount == 0)
         {
+            mModifers.Add(newModifer);
             return;
         }
 
-        if (newModifer.MaxStackAmt <= GetModiferStackCount(newModifer))
+        if(newModifer.Stackable && stackCount < newModifer.MaxStackAmt)
         {
-            return;
+            mModifers.Add(newModifer);
         }
-        
-        mModifers.Add(newModifer);
     }
 
     int GetModiferStackCount(AttributeModifier modifier)

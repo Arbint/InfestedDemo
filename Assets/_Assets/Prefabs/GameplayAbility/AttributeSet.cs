@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -15,10 +16,15 @@ public class AttributeSet : MonoBehaviour
     public delegate void OnAttributeChanged(string name, float newValue, float oldValue, GameplayEffectSpec srcSpec);
     public event OnAttributeChanged onAttributeChanged;
 
+    MethodInfo mAddModifierMethodInfo;
+
+    Dictionary<AttributeModifier, List<Coroutine>> mPeriodicalModifierRecords = new Dictionary<AttributeModifier, List<Coroutine>>();
+
     void Awake()
     {
         Mana.AddValuePostProcessor(ClampMana); 
         Health.AddValuePostProcessor(ClampHealth);
+        mAddModifierMethodInfo = typeof(GameplayAttribute).GetMethod("AddModifier");
     }
 
     private float ClampHealth(float inValue)
@@ -44,26 +50,72 @@ public class AttributeSet : MonoBehaviour
 
     internal void ApplyModifier(AttributeModifier modifier,  GameplayEffectSpec effectSpec)
     {
-        string attributeName = modifier.AttributeName;
-        PropertyInfo propertyInfo = GetType().GetProperty(attributeName);
+        PropertyInfo propertyInfo = GetType().GetProperty(modifier.AttributeName);
         if (propertyInfo == null || propertyInfo.PropertyType != typeof(GameplayAttribute))
             return;
 
-        MethodInfo applyModiferMethodInfo = typeof(GameplayAttribute).GetMethod("AddModifier");
-        float oldValue = GetPropertyCurrentValue(propertyInfo, out bool found);
-        if (applyModiferMethodInfo != null)
+        if (modifier.IsPeriodical())
         {
-            applyModiferMethodInfo.Invoke(propertyInfo.GetValue(this), new object[] { modifier });
-            float newValue = GetPropertyCurrentValue(propertyInfo, out found);
-            if (oldValue != newValue)
-            {
-                onAttributeChanged?.Invoke(attributeName, newValue, oldValue, effectSpec); 
-            }
-            
-            if(modifier.ModDuration != 0)
-            {
-                StartCoroutine(RemoveModiferAfterDuration(propertyInfo, modifier, effectSpec));
-            }
+            RegisterPeriodicalModifier(modifier, propertyInfo, effectSpec);
+            return;
+        }
+
+        AddModiferToAttribute(modifier, effectSpec, propertyInfo);
+
+        if (modifier.IsTemporary())
+        {
+            StartCoroutine(RemoveModiferAfterDuration(propertyInfo, modifier, effectSpec));
+        }
+    }
+
+    private void AddModiferToAttribute(AttributeModifier modifier, GameplayEffectSpec effectSpec, PropertyInfo propertyInfo)
+    {
+        float oldValue = GetPropertyCurrentValue(propertyInfo, out bool found);
+
+        mAddModifierMethodInfo.Invoke(propertyInfo.GetValue(this), new object[] { modifier });
+        float newValue = GetPropertyCurrentValue(propertyInfo, out found);
+        if (oldValue != newValue)
+        {
+            onAttributeChanged?.Invoke(modifier.AttributeName, newValue, oldValue, effectSpec);
+        }
+    }
+
+    private void RegisterPeriodicalModifier(AttributeModifier modifier, PropertyInfo propertyInfo, GameplayEffectSpec effectSpec)
+    {
+        AddModiferToAttribute(modifier, effectSpec, propertyInfo);
+        Coroutine modifierCoroutine = StartCoroutine(ModifierPeriodicalCoroutine(modifier, propertyInfo, effectSpec));
+
+        if (mPeriodicalModifierRecords.ContainsKey(modifier))
+        {
+            mPeriodicalModifierRecords[modifier].Add(modifierCoroutine);
+        }
+        else
+        {
+            mPeriodicalModifierRecords.Add(modifier, new List<Coroutine> { modifierCoroutine });
+        }
+
+        if (modifier.IsDurational())
+        {
+            StartCoroutine(StopDurationalCoroutine(modifier, modifierCoroutine));
+        }
+    }
+
+    private IEnumerator StopDurationalCoroutine(AttributeModifier modifier, Coroutine modifierCoroutine)
+    {
+        yield return new WaitForSeconds(modifier.ModDuration);
+        StopCoroutine(modifierCoroutine);
+        if(mPeriodicalModifierRecords.ContainsKey(modifier))
+        {
+            mPeriodicalModifierRecords[modifier].Remove(modifierCoroutine);
+        }
+    }
+
+    private IEnumerator ModifierPeriodicalCoroutine(AttributeModifier modifier, PropertyInfo propertyInfo, GameplayEffectSpec effectSpec)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(modifier.Period);
+            AddModiferToAttribute(modifier, effectSpec, propertyInfo);
         }
     }
 
@@ -104,5 +156,16 @@ public class AttributeSet : MonoBehaviour
         }
 
         return newValue;
+    }
+
+    public bool CanApplyCostEffect(GameplayEffect mCostGameplayEffect)
+    {
+        Dictionary<PropertyInfo, float> mAggregatedMods = new Dictionary<PropertyInfo, float>();
+        foreach (AttributeModifier attributeModifier in mCostGameplayEffect.Modifiers)
+        {
+
+        }
+
+        return true;
     }
 }

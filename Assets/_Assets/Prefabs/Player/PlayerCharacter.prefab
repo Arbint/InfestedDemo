@@ -144,8 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14b65f69d47afe4ba5fceb97d829920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHealth: 100
-  mMaxHealth: 100
 --- !u!114 &2836677316488093735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +176,10 @@ MonoBehaviour:
     <BaseValue>k__BackingField: 200
   <MaxMana>k__BackingField:
     <BaseValue>k__BackingField: 200
+  <Health>k__BackingField:
+    <BaseValue>k__BackingField: 200
+  <MaxHealth>k__BackingField:
+    <BaseValue>k__BackingField: 200
   <MoveSpeed>k__BackingField:
     <BaseValue>k__BackingField: 5
 --- !u!114 &1311790509687523264
@@ -195,6 +197,7 @@ MonoBehaviour:
   mInitialAbilities: []
   mInitialEffects:
   - {fileID: 11400000, guid: 3cd4b5009eb728d49aab96f55ad22750, type: 2}
+  - {fileID: 11400000, guid: ff411112fb32c1648b4a8175a2095b90, type: 2}
 --- !u!1001 &1067225959653057681
 PrefabInstance:
   m_ObjectHideFlags: 0

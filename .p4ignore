@@ -5,7 +5,6 @@ Obj/
 Build/
 Builds/
 Logs/
-.git/
 
 # User-specific files
 *.csproj
@@ -17,7 +16,6 @@ Logs/
 *.pidb
 *.booproj
 *.svd
-.gitignore
 
 # OS generated files
 .DS_Store

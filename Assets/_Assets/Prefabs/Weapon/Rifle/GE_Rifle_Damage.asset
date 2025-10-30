@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbb671f3d9984243bef29c06d485476, type: 3}
   m_Name: GE_Rifle_Damage
   m_EditorClassIdentifier: 
-  mModifier: []
+  mModifier:
+  - <AttributeName>k__BackingField: Health
+    <ModMagnitude>k__BackingField: -10
+    <ModOperation>k__BackingField: 0
+    <ModDuration>k__BackingField: 0
+    <Stackable>k__BackingField: 0
+    <MaxStackAmt>k__BackingField: 0
