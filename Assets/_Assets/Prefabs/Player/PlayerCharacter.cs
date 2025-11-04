@@ -52,12 +52,15 @@ public class PlayerCharacter : MonoBehaviour, ITeamInterface, IShakingInterface
 
         mInventoryComponent = GetComponent<InventoryComponent>();
         mHealthComponent = GetComponent<HealthComponent>();
-        mHealthComponent.onHealthEmpty += StartDeath;
+        mHealthComponent.onHealthEmpty += HealthEmpty;
         mAttributeSet = GetComponent<AttributeSet>();
     }
 
-    private void StartDeath()
+    private void HealthEmpty(GameObject instigator)
     {
+        if (instigator == gameObject)
+            return;
+
         if (mDeathStarted)
         {
             return;

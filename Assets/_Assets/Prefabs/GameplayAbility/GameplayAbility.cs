@@ -6,15 +6,15 @@ public abstract class GameplayAbility : ScriptableObject
     [SerializeField] GameplayEffect mCostGameplayEffect;
     [SerializeField] float mCooldownDuration;
     bool mOnCooldown = false;
-    public AbilitySystemComponent AbilitySystemComponent { get; private set; }
+    public AbilitySystemComponent OwnerAbilitySystemComponent { get; private set; }
     internal void Init(AbilitySystemComponent abilitySystemComponent)
     {
-        AbilitySystemComponent = abilitySystemComponent;
+        OwnerAbilitySystemComponent = abilitySystemComponent;
     }
 
     public bool TryActivateAbility()
     {
-        if (IsOnCoodown() || !AbilitySystemComponent.CanApplyCostEffect(mCostGameplayEffect))
+        if (IsOnCoodown() || !OwnerAbilitySystemComponent.CanApplyCostEffect(mCostGameplayEffect))
             return false;
 
         ActivateAbility();
@@ -36,12 +36,12 @@ public abstract class GameplayAbility : ScriptableObject
         if (IsOnCoodown())
             return false;
 
-        if (!AbilitySystemComponent.TryApplyCostEffect(mCostGameplayEffect))
+        if (!OwnerAbilitySystemComponent.TryApplyCostEffect(mCostGameplayEffect))
         {
             return false;
         }
 
-        AbilitySystemComponent.StartCoroutine(StartCooldownCoroutine());
+        OwnerAbilitySystemComponent.StartCoroutine(StartCooldownCoroutine());
         return true;
     }
 
@@ -50,5 +50,10 @@ public abstract class GameplayAbility : ScriptableObject
         mOnCooldown = true;
         yield return new WaitForSeconds(mCooldownDuration);
         mOnCooldown = false;
+    }
+
+    virtual protected void EndAbility()
+    {
+        Debug.Log($"Ability {this} Ended");
     }
 }

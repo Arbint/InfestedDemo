@@ -13,7 +13,7 @@ public class HealthComponent : MonoBehaviour
     
     public delegate void OnHealthChange(float health, float delta, float maxHealth);
     public delegate void OnTakenDamage(float amt, GameObject instigator);
-    public delegate void OnHealthEmpty();
+    public delegate void OnHealthEmpty(GameObject instigator);
 
     public event OnHealthChange onHealthChanged;
     public event OnTakenDamage onTakenDamage;
@@ -39,7 +39,7 @@ public class HealthComponent : MonoBehaviour
 
             if (newValue == 0)
             {
-                onHealthEmpty?.Invoke();
+                onHealthEmpty?.Invoke(effectSpec.Instigator);
             }
         }
     }

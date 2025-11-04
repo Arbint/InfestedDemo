@@ -33,6 +33,11 @@ public class DamageVisualizer : MonoBehaviour
 
     private void StartFlash(float amt, GameObject instigator)
     {
+        if(instigator == gameObject)
+        {
+            return;
+        }
+
         if (Mathf.Abs((mDynamicMaterial.GetColor(mFlashColorMaterialParamName) - mDefaultEmissionColor).grayscale) < 0.1f)
         {
             mDynamicMaterial.SetColor(mFlashColorMaterialParamName, mFlashColor);

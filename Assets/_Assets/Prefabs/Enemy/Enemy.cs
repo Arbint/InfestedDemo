@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
     {
         mAnimator = GetComponent<Animator>();
         mHealthComponent = GetComponent<HealthComponent>();
-        mHealthComponent.onHealthEmpty += StartDeath;
+        mHealthComponent.onHealthEmpty += HealthEmpty;
         mPerceptionComponent = GetComponent<PerceptionComponent>();
         mPerceptionComponent.onTargetUpdated += TargetUpdated;
 
@@ -69,8 +69,13 @@ public class Enemy : MonoBehaviour, IBehaviorInterface, ITeamInterface
         }
     }
 
-    private void StartDeath()
+    private void HealthEmpty(GameObject instigator)
     {
+        if(instigator == gameObject)
+        {
+            return;
+        }
+
         mAnimator.SetTrigger(mDeadAnimatorTriggerHash);
     }
 

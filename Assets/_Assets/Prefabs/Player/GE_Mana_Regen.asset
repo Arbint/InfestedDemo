@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbbb671f3d9984243bef29c06d485476, type: 3}
-  m_Name: TestEffect
+  m_Name: GE_Mana_Regen
   m_EditorClassIdentifier: 
   mModifier:
-  - <AttributeName>k__BackingField: MoveSpeed
-    <ModMagnitude>k__BackingField: 4
-    <ModOperation>k__BackingField: 1
-    <ModDuration>k__BackingField: 2
+  - <AttributeName>k__BackingField: Health
+    <ModMagnitude>k__BackingField: 1
+    <ModOperation>k__BackingField: 0
+    <ModDuration>k__BackingField: 0
     <Stackable>k__BackingField: 0
     <MaxStackAmt>k__BackingField: 0
+    <Period>k__BackingField: 1
