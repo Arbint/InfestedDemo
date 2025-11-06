@@ -17,17 +17,6 @@ public class AbilitySystemComponent : MonoBehaviour
     void Awake()
     {
         mAttributeSet = GetComponent<AttributeSet>();
-        StartCoroutine(TestCastAbility());
-    }
-
-    IEnumerator TestCastAbility()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(1);
-            if(mAbilities.Count > 0)
-                mAbilities[0].TryActivateAbility();
-        }
     }
 
     public void ApplyGameplayEffectToSelf(GameplayEffectSpec effectToApply)

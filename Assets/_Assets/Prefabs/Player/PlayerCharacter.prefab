@@ -197,6 +197,7 @@ MonoBehaviour:
   mInitialAbilities:
   - {fileID: 11400000, guid: 6800bb677325a3245a1ec7a98c09ce60, type: 2}
   - {fileID: 11400000, guid: 6800bb677325a3245a1ec7a98c09ce60, type: 2}
+  - {fileID: 11400000, guid: 6800bb677325a3245a1ec7a98c09ce60, type: 2}
   mInitialEffects:
   - {fileID: 11400000, guid: ff411112fb32c1648b4a8175a2095b90, type: 2}
   - {fileID: 11400000, guid: 57c7ade6310700f468b4e94d64d70ae7, type: 2}

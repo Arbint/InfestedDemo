@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GE_Mana_Regen
   m_EditorClassIdentifier: 
   mModifier:
-  - <AttributeName>k__BackingField: Health
-    <ModMagnitude>k__BackingField: 1
+  - <AttributeName>k__BackingField: Mana
+    <ModMagnitude>k__BackingField: 5
     <ModOperation>k__BackingField: 0
     <ModDuration>k__BackingField: 0
     <Stackable>k__BackingField: 0
