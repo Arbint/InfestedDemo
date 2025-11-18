@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 
 [RequireComponent(typeof(AttributeSet))]
-public class AbilitySystemComponent : MonoBehaviour
+public class AbilitySystemComponent : MonoBehaviour, IPurchaseHandler
 {
     [SerializeField] GameplayAbility[] mInitialAbilities;
     [SerializeField] GameplayEffect[] mInitialEffects;
@@ -57,5 +57,17 @@ public class AbilitySystemComponent : MonoBehaviour
     internal bool CanApplyCostEffect(GameplayEffect mCostGameplayEffect)
     {
         return mAttributeSet.CanApplyCostEffect(mCostGameplayEffect);
+    }
+
+    public bool HandlePurchase(ShopItem item)
+    {
+        GameplayAbility ability = item.Item as GameplayAbility;
+        if(ability != null)
+        {
+            GiveAbility(ability);
+            return true;
+        }
+
+        return false;
     }
 }

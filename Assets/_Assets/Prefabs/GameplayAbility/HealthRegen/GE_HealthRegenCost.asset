@@ -10,20 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbbb671f3d9984243bef29c06d485476, type: 3}
-  m_Name: GE_Projectile_Damage
+  m_Name: GE_HealthRegenCost
   m_EditorClassIdentifier: 
   mModifiers:
-  - <AttributeName>k__BackingField: Health
-    <ModMagnitude>k__BackingField: -10
+  - <AttributeName>k__BackingField: Mana
+    <ModMagnitude>k__BackingField: -20
     <ModOperation>k__BackingField: 0
     <ModDuration>k__BackingField: 0
     <Stackable>k__BackingField: 0
     <MaxStackAmt>k__BackingField: 0
-    <Period>k__BackingField: 0
-  - <AttributeName>k__BackingField: MoveSpeed
-    <ModMagnitude>k__BackingField: 0.5
-    <ModOperation>k__BackingField: 1
-    <ModDuration>k__BackingField: 1
-    <Stackable>k__BackingField: 1
-    <MaxStackAmt>k__BackingField: 2
     <Period>k__BackingField: 0

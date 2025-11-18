@@ -14,7 +14,7 @@ public abstract class GameplayAbility : ScriptableObject
     public event Action<float> onCooldownStarted;
 
     public AbilitySystemComponent OwnerAbilitySystemComponent { get; private set; }
-    internal void Init(AbilitySystemComponent abilitySystemComponent)
+    virtual public void Init(AbilitySystemComponent abilitySystemComponent)
     {
         OwnerAbilitySystemComponent = abilitySystemComponent;
     }

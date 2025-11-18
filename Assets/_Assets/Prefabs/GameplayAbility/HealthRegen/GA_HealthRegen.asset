@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8878da7a41c56d64ca4bd83817e953e8, type: 3}
+  m_Name: GA_HealthRegen
+  m_EditorClassIdentifier: 
+  mCostGameplayEffect: {fileID: 11400000, guid: c814723a13eaa304ba84895af0ca010f, type: 2}
+  mAbilityIcon: {fileID: 21300000, guid: 6690474d639a6a14b80d0ad0f3fb9bf0, type: 3}
+  mCooldownDuration: 5
+  mRegenTotalAmt: 50
+  mRegenDuration: 4
+  mUpdateInterval: 0.5

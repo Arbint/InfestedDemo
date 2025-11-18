@@ -83,6 +83,6 @@ public class AttributeBar : UserWidget
     private void UpdateValue(float value, float maxValue)
     {
         mValueGauge.SetPercent(value/maxValue);
-        mValueGauge.SetValueText($"{value}/{maxValue}");
+        mValueGauge.SetValueText($"{value:F0}/{maxValue:F0}");
     }
 }

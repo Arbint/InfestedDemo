@@ -12,6 +12,7 @@ public class AttributeSet : MonoBehaviour
     [field: SerializeField] public GameplayAttribute Health { get; private set; } = new GameplayAttribute(200);
     [field: SerializeField] public GameplayAttribute MaxHealth { get; private set; } = new GameplayAttribute(200);
     [field: SerializeField] public GameplayAttribute MoveSpeed { get; private set; } = new GameplayAttribute(5);
+    [field: SerializeField] public GameplayAttribute Credits { get; private set; } = new GameplayAttribute(200);
     
     public delegate void OnAttributeChanged(string name, float newValue, float oldValue, GameplayEffectSpec srcSpec);
     public event OnAttributeChanged onAttributeChanged;

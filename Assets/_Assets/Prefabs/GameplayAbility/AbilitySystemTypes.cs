@@ -13,6 +13,30 @@ public enum EModOperation
 [Serializable]
 public class AttributeModifier
 {
+    public AttributeModifier() : this("", 0, EModOperation.Add, 0, false, 0, 0)
+    {
+
+    }
+
+    public AttributeModifier(
+        string attributeName,
+        float modMagnitude,
+        EModOperation modOperation,
+        float modDuration, 
+        bool stackable,
+        int maxStackAmt,
+        float period 
+    ) 
+    {
+        AttributeName = attributeName;
+        ModMagnitude = modMagnitude;
+        ModOperation = modOperation;
+        ModDuration = modDuration;
+        Stackable = stackable;
+        MaxStackAmt = maxStackAmt;
+        Period = period;
+    }
+
     [field: SerializeField] public string AttributeName { get; private set; }
     [field: SerializeField] public float ModMagnitude { get; private set; }
     [field: SerializeField] public EModOperation ModOperation { get; private set; }

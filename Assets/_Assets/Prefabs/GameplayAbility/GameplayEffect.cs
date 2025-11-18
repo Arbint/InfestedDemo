@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "AbilitySystem/GameplayEffect")]
 public class GameplayEffect : ScriptableObject
 {
-    [SerializeField] public AttributeModifier[] mModifier;
-    public AttributeModifier[] Modifiers => mModifier;
+    [SerializeField] public List<AttributeModifier> mModifiers = new List<AttributeModifier>();
+    public List<AttributeModifier> Modifiers => mModifiers;
 }
 
 public class GameplayEffectSpec
